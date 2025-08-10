@@ -1,0 +1,17 @@
+{
+  "name": "onoper-core",
+  "module": "src/index.ts",
+  "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target module",
+    "dev": "bun run src/index.ts",
+    "start": "bun run dist/index.js"
+  },
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
