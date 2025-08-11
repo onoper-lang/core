@@ -1,6 +1,6 @@
 import { OnoperAttributeMetaChar, OnoperConfigMetaChar, OnoperElementMetaChar, OnoperLexerToken, type TokenType } from "../models/tokens";
 
-export class OnoperLexer {
+export class OnoperLexicalAnalysis {
     private passConfigChar: boolean = false;
     private identSize: number = 4;
 
@@ -20,9 +20,9 @@ export class OnoperLexer {
 
     private intentSelector(content: string, line: number): OnoperLexerToken {
         let match = content.match(this.createConfigRegex());
-        const token = new OnoperLexerToken();
-
+        
         if (this.passConfigChar === false && match) {
+            const token = new OnoperLexerToken([], line, 0);
             const [_1, configChar, _2, value] = match;
 
             const type = Object.entries(OnoperConfigMetaChar)
@@ -35,7 +35,7 @@ export class OnoperLexer {
             if (type === "IDENT") {
                 this.identSize = parseInt(value);
             }
-            token.addToken(type, value.trim(), line, 0);
+            token.addToken(type, value.trim());
 
             return token;
         }
@@ -50,6 +50,7 @@ export class OnoperLexer {
                 .find(([_, val]) => val === elementValue)?.[0] as TokenType || undefined;
 
         const ident = whitespace ? whitespace.length / this.identSize : 0;
+        const token = new OnoperLexerToken([], line, ident);
 
         if (!value) {
             throw new Error(`Unknown element or value at line ${line}: ${content}`);
@@ -69,10 +70,10 @@ export class OnoperLexer {
         }
 
         if (attributeValue) {
-            token.addToken("NAMED", attributeValue.trim(), line, ident);
+            token.addToken("NAMED", attributeValue.trim());
         }
 
-        token.addToken(element || "TASK", value.trim(), line, ident);
+        token.addToken(element || "TASK", value.trim());
         return token;
     }
 

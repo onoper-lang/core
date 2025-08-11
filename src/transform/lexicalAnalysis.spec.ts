@@ -1,8 +1,8 @@
 import { expect, test } from "bun:test";
-import { OnoperLexer } from "./lexer";
+import { OnoperLexicalAnalysis } from "./lexicalAnalysis";
 import type { OnoperToken } from "../models/tokens";
 
-const lexer = new OnoperLexer();
+const lexer = new OnoperLexicalAnalysis();
 
 test("Lexer should parse version and ident size", () => {
     const content = (

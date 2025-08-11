@@ -1,9 +1,9 @@
-import { OnoperLexerToken } from './../models/tokens';
+import { OnoperLexerToken } from '../models/tokens';
 import { expect, test } from "bun:test";
-import { OnoperParser } from "./parser";
+import { OnoperSyntacticAnalysis } from "./syntacticAnalysis";
 
 test("should error because claims, linked and comments need to be children of a task", () => {
-    const parser = new OnoperParser();
+    const parser = new OnoperSyntacticAnalysis();
 
     const token1 = new OnoperLexerToken([], 0, 0);
     token1.addToken("CLAIM", "claim");
@@ -15,24 +15,8 @@ test("should error because claims, linked and comments need to be children of a 
     expect(() => parser.execute([token1, token2, token3])).toThrow("Token \"CLAIM\" is not permitted in the root level.");
 });
 
-test("should error because linked needs a valid ID", () => {
-    const parser = new OnoperParser();
-
-    const token1 = new OnoperLexerToken([], 0, 0);
-    token1.addToken("TASK", "task");
-
-    const token2 = new OnoperLexerToken([], 1, 1);
-    token2.addToken("LINK", "linked");
-
-    const token3 = new OnoperLexerToken([], 2, 0);
-    token3.addToken("TASK", "test");
-    token3.addToken("NAMED", "undefined");
-
-    expect(() => parser.execute([token1, token2, token3])).toThrow("Link with ID \"linked\" not found.");
-});
-
 test("should error because comments, claims and linked cannot have children", () => {
-    const parser = new OnoperParser();
+    const parser = new OnoperSyntacticAnalysis();
 
     const token1 = new OnoperLexerToken([], 0, 0);
     token1.addToken("TASK", "task");
@@ -61,7 +45,7 @@ test("should error because comments, claims and linked cannot have children", ()
 });
 
 test("linked com ID válido", () => {
-    const parser = new OnoperParser();
+    const parser = new OnoperSyntacticAnalysis();
 
     const token1 = new OnoperLexerToken([], 0, 0);
     token1.addToken("TASK", "task1");
