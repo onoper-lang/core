@@ -58,6 +58,9 @@ export class OnoperLexer {
         if (value.startsWith("[")) {
             const localValue = value.split(/(\[|\])/g).filter((v) => v.trim() !== "");
             attributeValue = localValue[1];
+            if (localValue[2] !== "]") {
+                throw new Error(`Expected ']' at line ${line}, found: ${localValue[2]}`);
+            }
             value = localValue[3];
         }
 

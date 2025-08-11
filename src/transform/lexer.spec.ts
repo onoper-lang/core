@@ -12,8 +12,8 @@ test("Lexer should parse version and ident size", () => {
 
     const result = lexer.execute(content);
     const expected: OnoperToken[][] = [
-        [{ type: "VERSION", value: "1", position: { line: 0, ident: 0 } }],
-        [{ type: "IDENT", value: "4", position: { line: 1, ident: 0 } }]
+        [{ type: "VERSION", value: "1" }],
+        [{ type: "IDENT", value: "4" }]
     ];
 
     expect(result.map((ent) => ent.getTokens())).toEqual(expected);
@@ -29,10 +29,10 @@ test("Lexer should parse TASKs with ident size", () => {
 
     const result = lexer.execute(content);
     const expected: OnoperToken[][] = [
-        [{ type: "TASK", value: "Onboarding cliente", position: { line: 0, ident: 0 } }],
-        [{ type: "TASK", value: "Coletar Docs", position: { line: 1, ident: 1 } }],
-        [{ type: "TASK", value: "Criar conta", position: { line: 2, ident: 2 } }],
-        [{ type: "TASK", value: "Confirmar dados", position: { line: 3, ident: 1 } }],
+        [{ type: "TASK", value: "Onboarding cliente" }],
+        [{ type: "TASK", value: "Coletar Docs" }],
+        [{ type: "TASK", value: "Criar conta" }],
+        [{ type: "TASK", value: "Confirmar dados" }],
     ];
 
     expect(result.map((ent) => ent.getTokens())).toEqual(expected);
@@ -48,10 +48,10 @@ test("Lexer should parse TASKs with links and CLAIMs", () => {
 
     const result = lexer.execute(content);
     const expected: OnoperToken[][] = [
-        [{ type: "TASK", value: "Suporte", position: { line: 0, ident: 0 } }],
-        [{ type: "TASK", value: "Receber chamado", position: { line: 1, ident: 1 } }],
-        [{ type: "CLAIM", value: "Processo manual demais", position: { line: 2, ident: 2 } }],
-        [{ type: "TASK", value: "Registrar ocorrência", position: { line: 3, ident: 1 } }]
+        [{ type: "TASK", value: "Suporte" }],
+        [{ type: "TASK", value: "Receber chamado" }],
+        [{ type: "CLAIM", value: "Processo manual demais" }],
+        [{ type: "TASK", value: "Registrar ocorrência" }]
     ];
 
     expect(result.map((ent) => ent.getTokens())).toEqual(expected);
@@ -65,8 +65,8 @@ test("Lexer should parse TASKs with NAMED entities", () => {
 
     const result = lexer.execute(content);
     const expected: OnoperToken[][] = [
-        [{ type: "TASK", value: "Suporte", position: { line: 0, ident: 0 } }],
-        [{ type: "NAMED", value: "register_occurrence", position: { line: 1, ident: 1 } }, { type: "TASK", value: "Registrar ocorrência", position: { line: 1, ident: 1 } }]
+        [{ type: "TASK", value: "Suporte" }],
+        [{ type: "NAMED", value: "register_occurrence" }, { type: "TASK", value: "Registrar ocorrência" }]
     ];
 
     expect(result.map((ent) => ent.getTokens())).toEqual(expected);
@@ -83,12 +83,12 @@ test("Lexer should handle TASKs with links and CLAIMs", () => {
         > Suporte`;
     const result = lexer.execute(content);
     const expected: OnoperToken[][] = [
-        [{ type: "TASK", value: "Onboarding cliente", position: { line: 0, ident: 0 } }],
-        [{ type: "NAMED", value: "collect_docs", position: { line: 1, ident: 1 } }, { type: "TASK", value: "Coletar Docs", position: { line: 1, ident: 1 } }],
-        [{ type: "CLAIM", value: "Cliente não envia docs", position: { line: 2, ident: 2 } }],
-        [{ type: "TASK", value: "Criar conta", position: { line: 3, ident: 1 } }],
-        [{ type: "NAMED", value: "confirm_data", position: { line: 4, ident: 1 } }, { type: "TASK", value: "Confirmar dados", position: { line: 4, ident: 1 } }],
-        [{ type: "LINK", value: "Suporte", position: { line: 5, ident: 2 } }]
+        [{ type: "TASK", value: "Onboarding cliente" }],
+        [{ type: "NAMED", value: "collect_docs" }, { type: "TASK", value: "Coletar Docs" }],
+        [{ type: "CLAIM", value: "Cliente não envia docs" }],
+        [{ type: "TASK", value: "Criar conta" }],
+        [{ type: "NAMED", value: "confirm_data" }, { type: "TASK", value: "Confirmar dados" }],
+        [{ type: "LINK", value: "Suporte" }]
     ];
 
     expect(result.map((ent) => ent.getTokens())).toEqual(expected);

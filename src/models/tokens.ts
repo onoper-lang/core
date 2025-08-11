@@ -25,24 +25,24 @@ export type TokenType = keyof typeof OnoperMetachar;
 export interface OnoperToken {
     type: TokenType;
     value: string;
-    position: {
-        line: number;
-        ident: number;
-    };
 }
 
 export class OnoperLexerToken{
     private tokens: OnoperToken[] = [];
+    position: {
+        line: number;
+        ident: number;
+    };
 
-    constructor(tokens: OnoperToken[] = []) {
+    constructor(tokens: OnoperToken[] = [], line: number = 0, ident: number = 0) {
         this.tokens = tokens;
+        this.position = { line, ident };
     }
 
-    addToken(type: TokenType, value: string, line: number, ident: number): void {
+    addToken(type: TokenType, value: string): void {
         this.tokens.push({
             type,
-            value,
-            position: { line, ident }
+            value
         });
     }
 
