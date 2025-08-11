@@ -44,7 +44,7 @@ test("should error because comments, claims and linked cannot have children", ()
     expect(() => parser.execute(tokens)).toThrow("Token \"CLAIM\" cannot have children.");
 });
 
-test("linked com ID válido", () => {
+test("linked with valid ID", () => {
     const parser = new OnoperSyntacticAnalysis();
 
     const token1 = new OnoperLexerToken([], 0, 0);
@@ -70,3 +70,18 @@ test("linked com ID válido", () => {
 
     expect(() => parser.execute(tokens)).not.toThrow();
 });
+
+test("should error because claims, links and comments need content", () => {
+    const parser = new OnoperSyntacticAnalysis();
+
+    const token1 = new OnoperLexerToken([], 0, 0);
+    token1.addToken("TASK", "task1");
+    token1.addToken("NAMED", "linked");
+    const token2 = new OnoperLexerToken([], 1, 1);
+    token2.addToken("LINK", "");
+
+    const tokens = [token1, token2];
+
+    expect(() => parser.execute(tokens)).toThrow("Token \"LINK\" must have content.");
+});
+

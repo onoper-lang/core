@@ -3,7 +3,7 @@ import { OnoperLexerToken } from "../models/tokens";
 const ERROR = {
     // Change format with found linked names.
     LINKED_NAME_NOT_FOUND: (id: string) => `Link with ID "${id}" not found.`,
-    DUPLICATE_NAMED: (name: string) => `Named token "${name}" is duplicated.`,
+    //DUPLICATE_NAMED: (name: string) => `Named token "${name}" is duplicated.`,
 }
 
 export class OnoperSemanticAnalysis {

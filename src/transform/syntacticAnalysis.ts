@@ -1,17 +1,18 @@
-import { OnoperLexerToken } from "../models/tokens";
+import { OnoperLexerToken, type TokenType } from "../models/tokens";
 
 const ERROR = {
     NOT_PERMITTED_IN_ROOT: (token: string) => `Token "${token}" is not permitted in the root level.`,
     CHILDREN_NOT_PERMITTED: (token: string) => `Token "${token}" cannot have children.`,
     NEED_PARENT_TASK: (token: string) => `Token "${token}" must be a child of a task.`,
-    NOT_FOUND_ID: (id: string) => `Link with ID "${id}" not found.`,
     NOT_FOUND_TOKEN_IN_LEXER: () => `Tokens not found in the lexer.`,
+    //ELEMENT_WITHOUT_CONTENT: (token: string) => `Token "${token}" must have content.`,
 }
 
 const SYNTAX_PERMISSIONS = {
-    NOT_PERMITTED_IN_ROOT: new Set(["CLAIM", "LINK", "COMMENT"]),
-    CHILDREN_NOT_PERMITTED: new Set(["CLAIM", "LINK", "COMMENT"]),
-    NEED_PARENT_TASK: new Set(["CLAIM", "LINK", "COMMENT"]),
+    NOT_PERMITTED_IN_ROOT: new Set(["CLAIM", "LINK", "COMMENT"]) as Set<TokenType>,
+    CHILDREN_NOT_PERMITTED: new Set(["CLAIM", "LINK", "COMMENT"]) as Set<TokenType>,
+    NEED_PARENT_TASK: new Set(["CLAIM", "LINK", "COMMENT"]) as Set<TokenType>,
+    //ELEMENT_WITHOUT_CONTENT: new Set(["CLAIM", "LINK", "COMMENT", "TASK", "IDENT", "VERSION"]) as Set<TokenType>,
 }
 
 export class OnoperSyntacticAnalysis {

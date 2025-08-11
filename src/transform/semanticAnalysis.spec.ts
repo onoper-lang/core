@@ -15,5 +15,24 @@ test("should error because linked needs a valid ID", () => {
     token3.addToken("TASK", "test");
     token3.addToken("NAMED", "undefined");
 
-    expect(() => parser.execute([token1, token2, token3])).toThrow("Link with ID \"linked\" not found.");
+    const tokens = [token1, token2, token3];
+
+    expect(() => parser.execute(tokens)).toThrow("Link with ID \"linked\" not found.");
+});
+
+
+test("should error because has duplicated id", () => {
+    const parser = new OnoperSemanticAnalysis();
+
+    const token1 = new OnoperLexerToken([], 0, 0);
+    token1.addToken("TASK", "task1");
+    token1.addToken("NAMED", "linked");
+
+    const token2 = new OnoperLexerToken([], 1, 0);
+    token2.addToken("TASK", "task2");
+    token2.addToken("NAMED", "linked");
+
+    const tokens = [token1, token2];
+
+    expect(() => parser.execute(tokens)).toThrow("Named token \"linked\" is duplicated.");
 });

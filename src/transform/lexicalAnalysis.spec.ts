@@ -101,3 +101,14 @@ test("Lexer should handle empty content", () => {
     expect(result).toEqual([]);
 });
 
+
+test("Lexer should handle content with only spaces", () => {
+    const content = "> ";
+    const result = lexer.execute(content);
+    const expected: OnoperToken[][] = [
+        [{ type: "LINK", value: "" }]
+    ];
+
+    expect(result.map((ent) => ent.getTokens())).toEqual(expected);
+    expect(result.length).toBe(1);
+});
