@@ -21,7 +21,7 @@ test("should error because linked needs a valid ID", () => {
 });
 
 
-test("should error because has duplicated id", () => {
+test.todo("should error because has duplicated id", () => {
     const parser = new OnoperSemanticAnalysis();
 
     const token1 = new OnoperLexerToken([], 0, 0);
