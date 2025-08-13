@@ -1,0 +1,204 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onoper Document</title>
+</head>
+
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        .onoper-root {
+            font-family: Arial, sans-serif;
+            padding: 1rem;
+        }
+
+        .onoper-children {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem 3rem;
+        }
+
+        .onoper-task {
+            border: 1px solid #ccc;
+            border-radius: 1rem;
+            padding: 1rem;
+            background-color: #FAFAFA;
+            position: relative;
+            overflow: hidden;
+            min-width: 12rem;
+            --named-id-color: #EEF3FF;
+        }
+
+        .onoper-task::before {
+            content: '';
+            display: block;
+            height: 100%;
+            width: 100%;
+            background-image: linear-gradient(to bottom left, var(--named-id-color), #FAFAFA);
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.4;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .onoper-task-header {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1.5rem 1fr auto;
+            gap: 1rem;
+        }
+
+        .onoper-badge-container {
+            display: flex;
+        }
+
+        .onoper-badge {
+            width: min-content;
+            height: min-content;
+            border-radius: 999px;
+            border: none;
+            background-color: #E0E0E0;
+            cursor: pointer;
+        }
+        
+        .onoper-badge-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            aspect-ratio: 1 / 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .onoper-badge-icon::after {
+            content: '';
+            display: block;
+        }
+
+        .onoper-badge[data-has-comment='true'] .onoper-badge-icon::after {
+            content: '💬';
+        }
+
+        .onoper-badge[data-has-comment='true'] .onoper-badge-icon {
+            background-color: #FFE1A8;
+        }
+
+        .onoper-badge[data-has-claim='true'] .onoper-badge-icon::after {
+            content: '❗';
+        }
+
+        .onoper-badge[data-has-claim='true'] .onoper-badge-icon {
+            background-color: #FFB1B1;
+        }
+
+        .onoper-badge[data-has-claim='false'][data-has-comment='false'] {
+            background-color: transparent;
+        }
+
+        .onoper-messages-container {}
+
+        onoper-claim {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .onoper-comment {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .onoper-linked {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .onoper-link {
+            width: 0.75rem;
+            height: 100%;
+            border-radius: 4px;
+            --linked-id-color: #FFDD57;
+            background-color: var(--linked-id-color);
+        }
+
+        .onoper-badge:hover .onoper-messages-container{
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .onoper-messages-container {
+            position: absolute;
+            left: 0%;
+            bottom: .75rem;
+            background-color: white;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <div class="onoper-root">
+        <main class="onoper-children">
+            <article class="onoper-task" data-has-children="true" style="--named-id-color: hsl(0, 70%, 85%)">
+                <header class="onoper-task-header">
+                    <div class="onoper-badge-container"> <button class="onoper-badge" data-has-comment="false"
+                            data-has-claim="false"> <span class="onoper-badge-icon"></span>
+                            <div class="onoper-messages-container"> </div>
+                        </button> </div>
+                    <p>Onboarding cliente</p>
+                    <div class="onoper-linked"> </div>
+                </header>
+                <main class="onoper-children">
+                    <article class="onoper-task" data-has-children="false" style="--named-id-color: hsl(0, 70%, 85%)">
+                        <header class="onoper-task-header">
+                            <div class="onoper-badge-container"> <button class="onoper-badge" data-has-comment="false"
+                                    data-has-claim="true"> <span class="onoper-badge-icon"></span>
+                                    <div class="onoper-messages-container">
+                                        <div class="onoper-claim"> <span class="onoper-claim-icon">🗨️</span> <span
+                                                class="onoper-claim-content">Cliente não envia docs</span> </div>
+                                    </div>
+                                </button> </div>
+                            <p>Coletar Docs</p>
+                            <div class="onoper-linked"> </div>
+                        </header>
+                    </article>
+                </main>
+            </article>
+            <article class="onoper-task" data-has-children="true" style="--named-id-color: hsl(0, 70%, 85%)">
+                <header class="onoper-task-header">
+                    <div class="onoper-badge-container"> <button class="onoper-badge" data-has-comment="false"
+                            data-has-claim="false"> <span class="onoper-badge-icon"></span>
+                            <div class="onoper-messages-container"> </div>
+                        </button> </div>
+                    <p>Suporte</p>
+                    <div class="onoper-linked"> </div>
+                </header>
+                <main class="onoper-children">
+                    <article class="onoper-task" data-has-children="false" style="--named-id-color: hsl(0, 70%, 85%)">
+                        <header class="onoper-task-header">
+                            <div class="onoper-badge-container"> <button class="onoper-badge" data-has-comment="false"
+                                    data-has-claim="false"> <span class="onoper-badge-icon"></span>
+                                    <div class="onoper-messages-container"> </div>
+                                </button> </div>
+                            <p>Receber chamado</p>
+                            <div class="onoper-linked"> </div>
+                        </header>
+                    </article>
+                </main>
+            </article>
+        </main>
+    </div>
+
+</body>
+
+</html>
