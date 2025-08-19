@@ -8,10 +8,11 @@ version: 1
 ident: 4
 
 Onboarding cliente
-    Coletar Docs
-        ! Cliente não envia docs
+[test2]Coletar Docs
+  ! Cliente não envia docs
 Suporte
-    Receber chamado
+  [test]Receber chamado
+  Finalizar chamado
 `) || "<h1>Erro ao processar o documento</h1>";
 
 const baseHtml = `<!DOCTYPE html>
