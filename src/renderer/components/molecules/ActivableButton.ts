@@ -6,7 +6,7 @@ export const ActivableButtonStyle = `
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 4px 4px;
+        padding: 2px 2px;
         border: none;
         cursor: pointer;
         ${MIDDLE_ROUNDED}
@@ -26,7 +26,7 @@ interface ActivableButtonProps extends OnoperGenericComponentProps {
     label: string;
     activable: boolean;
     children: string;
-    onClick: () => void;
+    onClick?: () => void;
     style?: string;
 }
 
@@ -36,7 +36,6 @@ export function ActivableButton(props: ActivableButtonProps): string {
     return `
         <button
             class="onoper-activable-button ${className || ''}"
-            onclick="${onClick}"
             style="${style || ''}"
             ${activable ? '' : 'disabled'}
             aria-label="${label}"

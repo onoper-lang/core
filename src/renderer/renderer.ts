@@ -1,7 +1,7 @@
 import type { OnoperIntermediaryDTO } from "../models/intermediary";
 import { GroupCard } from "./components/organisms/GroupCard";
 import { Root } from "./components/organisms/Root";
-import { SimpleCard } from "./components/organisms/SimpleCard";
+import { handleSelectClick, SimpleCard } from "./components/organisms/SimpleCard";
 import { resolveStyle } from "./core/style";
 
 export class OnoperRenderer {
@@ -52,7 +52,8 @@ export class OnoperRenderer {
             throw new Error("Invalid item type or structure");
         }
 
-        let resolvedConnections = "";
+        let resolvedCreateConnections = "";
+        let resolvedDeleteConnections = "";
 
         for (const key in this.elementList) {
             const elementList = this.elementList[key];
@@ -62,18 +63,65 @@ export class OnoperRenderer {
                 if (i + 1 >= elementList.length) break;
                 const elementId = elementList[i];
                 const nextElementId = elementList[i + 1];
-                resolvedConnections += `arrowLine('#id_${elementId}', '#id_${nextElementId}');\n`;
+                resolvedCreateConnections += `arrows["arrow_${elementId}_${nextElementId}"] = arrowLine('#id_${elementId}', '#id_${nextElementId}');\n`;
+                resolvedDeleteConnections += `if (arrows["arrow_${elementId}_${nextElementId}"]) arrows["arrow_${elementId}_${nextElementId}"].remove();\n`;
             }
         }
 
         const html = `
+            <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/arrow-line/dist/arrow-line.min.js"></script>
             ${resolvedStyle}
             ${resolvedHTML}
             <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                    ${resolvedConnections}
-                });
+                const arrows = {};
+                
+                function updateArrows() {
+                    ${resolvedDeleteConnections}
+                    ${resolvedCreateConnections}
+                    requestAnimationFrame(updateArrows);
+                }
+
+                requestAnimationFrame(updateArrows);
+                
+                ${handleSelectClick.toString()};
+
+                let x = 0;
+                let y = 0;
+
+                function handleDrag(element) {
+                    interact(element)
+                    .draggable({
+                        modifiers: [
+                            interact.modifiers.snap({
+                                targets: [
+                                    interact.snappers.grid({ x: 1, y: 1 })
+                                ],
+                                range: Infinity,
+                                relativePoints: [ { x: 0, y: 0 } ]
+                            }),
+                        ],
+                        inertia: true
+                    })
+                    .on('dragmove', function (event) {
+                        const target = event.target;
+                        const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+                        const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+                        target.style.transform = \`translate(\${x}px, \${y}px)\`;
+                        target.setAttribute('data-x', x);
+                        target.setAttribute('data-y', y);
+                    })
+                }
+
+                setTimeout(() => {
+                    const svg = document.querySelector('#__arrowLineInternal-svg-canvas');
+                    const viewport = document.querySelector('#onoper-viewport');
+                    if (svg && viewport && !viewport.contains(svg)) {
+                        viewport.appendChild(svg);
+                    }
+                    handleDrag(viewport);
+                }, 100);
             </script>
         `.replace(/\n/g, '').replace(/\s+/g, ' ').trim();
         return html;

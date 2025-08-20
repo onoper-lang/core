@@ -10,3 +10,4 @@ export const COMMENT_COLOR = '#FDEDCA';
 export const BACKGROUND_COLOR = '#F9F9F9';
 export const BACKGROUND_ALT_COLOR = '#F1F1F1';
 export const ROOT_BACKGROUND_COLOR = '#FFFFFF';
+export const ACTIVE_COLOR = '#a8c9d1ff';

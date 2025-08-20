@@ -1,5 +1,7 @@
 import { ActivableButtonStyle } from "../components/molecules/ActivableButton";
-import { FooterCardStyle } from "../components/molecules/CardFooter";
+import { ContentAccordionStyle } from "../components/molecules/ContentAccordion";
+import { GroupFooterCardStyle } from "../components/molecules/GroupCardFooter";
+import { SimpleFooterCardStyle } from "../components/molecules/SimpleCardFooter";
 import { SimpleCardHeaderStyle } from "../components/molecules/SimpleCardHeader";
 import { GroupCardStyle } from "../components/organisms/GroupCard";
 import { RootStyle } from "../components/organisms/Root";
@@ -34,9 +36,11 @@ export function resolveStyle(): string {
             ${RootStyle}
             ${SimpleCardStyle}
             ${GroupCardStyle}
-            ${FooterCardStyle}
+            ${GroupFooterCardStyle}
+            ${SimpleFooterCardStyle}
             ${SimpleCardHeaderStyle}
             ${ActivableButtonStyle}
+            ${ContentAccordionStyle}
         </style>
     `;
 }

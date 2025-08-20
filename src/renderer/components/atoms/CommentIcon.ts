@@ -1,4 +1,4 @@
-export function CommentIcon(size: number = 24): string {
+export function CommentIcon(size: number = 18): string {
     return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8.25 8.25C7.83579 8.25 7.5 8.58579 7.5 9C7.5 9.41421 7.83579 9.75 8.25 9.75H11.25C11.6642 9.75 12 9.41421 12 9C12 8.58579 11.6642 8.25 11.25 8.25H8.25Z" fill="black"/>
 <path d="M7.5 15C7.5 14.5858 7.83579 14.25 8.25 14.25H14.25C14.6642 14.25 15 14.5858 15 15C15 15.4142 14.6642 15.75 14.25 15.75H8.25C7.83579 15.75 7.5 15.4142 7.5 15Z" fill="black"/>

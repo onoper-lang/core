@@ -1,6 +1,6 @@
 import { BACKGROUND_ALT_COLOR, BACKGROUND_COLOR, BOX_SHADOW, OVER_ROUNDED } from "../../core/constStyle";
 import { generateColorFromId } from "../../core/utils";
-import { CardFooter } from "../molecules/CardFooter";
+import { GroupCardFooter } from "../molecules/GroupCardFooter";
 import type { SimpleCardProps } from "./SimpleCard";
 
 export const GroupCardStyle = `
@@ -42,7 +42,7 @@ export const GroupCardStyle = `
         padding: 0px 12px;
         padding-bottom: 36px;
     }
-    .onoper-group-card-footer {
+    .onoper-group-card-footer-container {
         padding: 0px 12px;
         padding-bottom: 12px;
     }
@@ -76,8 +76,8 @@ export function GroupCard(props: GroupCardProps) {
             <div class="onoper-group-card-children">
                 ${children}
             </div>
-            <div class="onoper-group-card-footer">
-                ${CardFooter({ links, claims, comments })}
+            <div class="onoper-group-card-footer-container">
+                ${GroupCardFooter({ links, claims, comments })}
             </div>
         </div>
     `;

@@ -4,23 +4,23 @@ import { ClaimIcon } from "../atoms/ClaimIcon";
 import { CommentIcon } from "../atoms/CommentIcon";
 import { ActivableButton } from "./ActivableButton";
 
-export const FooterCardStyle = `
-    .onoper-card-footer {
+export const SimpleFooterCardStyle = `
+    .onoper-simple-card-footer {
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
-    .onoper-footer-actions {
+    .onoper-simple-footer-actions {
         display: flex;
         align-items: center;
         gap: 8px;
     }
-    .onoper-footer-links {
+    .onoper-simple-footer-links {
         display: flex;
         align-items: center;
         gap: -3px;
     }
-    .onoper-footer-link {
+    .onoper-simple-footer-link {
         width: 24px;
         height: 24px;
         flex-shrink: 0;
@@ -28,18 +28,18 @@ export const FooterCardStyle = `
     }
 `
 
-interface CardFooterProps {
+interface SimpleCardFooterProps {
     links: string[];
     claims: string[];
     comments: string[];
 }
 
-export function CardFooter(props: CardFooterProps) {
+export function SimpleCardFooter(props: SimpleCardFooterProps) {
     const { links, claims, comments } = props;
 
     return `
-        <div class="onoper-card-footer">
-            <span class="onoper-footer-actions">
+        <div class="onoper-simple-card-footer">
+            <span class="onoper-simple-footer-actions">
                 ${ActivableButton({
                     activable: claims.length > 0,
                     label: "Problemas",
@@ -55,10 +55,10 @@ export function CardFooter(props: CardFooterProps) {
                     style: `background-color: ${COMMENT_COLOR};`,
                 })}
             </span>
-            <span class="onoper-footer-links">
+            <span class="onoper-simple-footer-links">
                 ${links.map(link => 
                     `<span
-                        class="onoper-footer-link"
+                        class="onoper-simple-footer-link"
                         aria-label="${link}"
                         style="background-color: ${generateColorFromId(link)};"
                     ></span>`
