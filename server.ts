@@ -5,15 +5,17 @@ const onoper = new Onoper();
 // 1. Gerar o conteúdo HTML
 const htmlContent = onoper.execute(`
 version: 1
-ident: 4
+ident: 2
 
 Onboarding cliente
 [test2]Coletar Docs
   ! Cliente não envia docs
 Suporte
+  ! Um erro
   [test]Receber chamado
   Finalizar chamado
-`) || "<h1>Erro ao processar o documento</h1>";
+`) || 
+"<h1>Erro ao processar o documento</h1>";
 
 const baseHtml = `<!DOCTYPE html>
 <html lang="pt-BR">

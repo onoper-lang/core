@@ -3,17 +3,18 @@ import { generateColorFromId } from "../../core/utils";
 import { ClaimIcon } from "../atoms/ClaimIcon";
 import { CommentIcon } from "../atoms/CommentIcon";
 import { ActivableButton } from "./ActivableButton";
+import { ContentAccordion } from "./ContentAccordion";
 
 export const GroupFooterCardStyle = `
     .onoper-group-card-footer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    .onoper-group-footer-actions {
-        display: flex;
-        align-items: center;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        align-items: start;
         gap: 8px;
+    }
+
+    .onoper-group-card-footer .onoper-content-accordion-header {
+        max-width: max-content;
     }
     .onoper-group-footer-links {
         display: flex;
@@ -39,22 +40,26 @@ export function GroupCardFooter(props: GroupCardFooterProps) {
 
     return `
         <div class="onoper-group-card-footer">
-            <span class="onoper-group-footer-actions">
-                ${ActivableButton({
+            ${ContentAccordion({
+                title: "Problemas",
+                list: claims,
+                icon: ActivableButton({
                     activable: claims.length > 0,
                     label: "Problemas",
                     children: ClaimIcon(),
-                    onClick: () => console.log("Claim clicked"),
                     style: `background-color: ${CLAIM_COLOR};`,
-                })}
-                ${ActivableButton({
+                })
+            })}
+            ${ContentAccordion({
+                title: "Comentários",
+                list: comments,
+                icon: ActivableButton({
                     activable: comments.length > 0,
                     label: "Comentários",
                     children: CommentIcon(),
-                    onClick: () => console.log("Comment clicked"),
                     style: `background-color: ${COMMENT_COLOR};`,
-                })}
-            </span>
+                })
+            })}
             <span class="onoper-group-footer-links">
                 ${links.map(link => 
                     `<span
