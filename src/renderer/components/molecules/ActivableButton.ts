@@ -1,5 +1,5 @@
-import { MIDDLE_ROUNDED } from "../../core/constStyle";
-import type { OnoperGenericComponentProps } from "../../core/props";
+import { MIDDLE_ROUNDED } from "../../core/style/consts";
+import type { OnoperComponentProps } from "../../core/component/types";
 
 export const ActivableButtonStyle = `
     .onoper-activable-button {
@@ -22,7 +22,7 @@ export const ActivableButtonStyle = `
     }
 `
 
-interface ActivableButtonProps extends OnoperGenericComponentProps {
+interface ActivableButtonProps extends OnoperComponentProps {
     label: string;
     activable: boolean;
     children: string;

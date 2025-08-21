@@ -1,5 +1,5 @@
-import { BACKGROUND_ALT_COLOR, MIDDLE_ROUNDED } from "../../core/constStyle";
-import type { OnoperGenericComponentProps } from "../../core/props";
+import { BACKGROUND_ALT_COLOR, MIDDLE_ROUNDED } from "../../core/style/consts";
+import type { OnoperComponentProps } from "../../core/component/types";
 import { AccordionToggleIcon } from "../atoms/AccordionToggleIcon";
 
 export const ContentAccordionStyle = `
@@ -32,7 +32,7 @@ export const ContentAccordionStyle = `
     }
 `
 
-interface ContentAccordionProps extends OnoperGenericComponentProps {
+interface ContentAccordionProps extends OnoperComponentProps {
     icon?: string;
     title: string;
     list: string[];

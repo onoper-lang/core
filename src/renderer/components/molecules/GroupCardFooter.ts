@@ -1,4 +1,4 @@
-import { CLAIM_COLOR, COMMENT_COLOR, MIDDLE_ROUNDED } from "../../core/constStyle";
+import { CLAIM_COLOR, COMMENT_COLOR, MIDDLE_ROUNDED } from "../../core/style/consts";
 import { generateColorFromId } from "../../core/utils";
 import { ClaimIcon } from "../atoms/ClaimIcon";
 import { CommentIcon } from "../atoms/CommentIcon";

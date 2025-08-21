@@ -1,5 +1,5 @@
-import { BACKGROUND_ALT_COLOR, INTERN_ROUNDED, MIDDLE_ROUNDED } from "../../core/constStyle";
-import type { OnoperGenericComponentProps } from "../../core/props";
+import { BACKGROUND_ALT_COLOR, INTERN_ROUNDED, MIDDLE_ROUNDED } from "../../core/style/consts";
+import type { OnoperComponentProps } from "../../core/component/types";
 import { generateColorFromId } from "../../core/utils";
 
 export const SimpleCardHeaderStyle = `
@@ -23,7 +23,7 @@ export const SimpleCardHeaderStyle = `
     }
 `
 
-interface SimpleCardHeaderProps extends OnoperGenericComponentProps {
+interface SimpleCardHeaderProps extends OnoperComponentProps {
     title: string;
     named?: string;
 }
