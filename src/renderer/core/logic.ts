@@ -35,11 +35,28 @@ export function resolveArrowConnections(elementList: string[][]): string {
         <script src="https://cdn.jsdelivr.net/npm/arrow-line/dist/arrow-line.min.js"></script>
         <script>
             const arrows = {};
-            
+
             function updateArrows() {
-                ${resolvedDeleteConnections}
-                ${resolvedCreateConnections}
-                requestAnimationFrame(updateArrows);
+                try {
+                    ${resolvedDeleteConnections}
+                    ${resolvedCreateConnections}
+
+                    const viewport = document.querySelector('#onoper-viewport');
+                    if (!viewport) throw new Error("Viewport not found");
+                    const x = viewport.getAttribute('data-x') || 0;
+                    const y = viewport.getAttribute('data-y') || 0;
+    
+                    const targetArrows = document.querySelector('#__arrowLineInternal-svg-canvas');
+                    if (!targetArrows) throw new Error("Arrows not found");
+                    targetArrows.style.transform = \`translate(\${x}px, \${y}px)\`;
+                    targetArrows.setAttribute('data-x', x);
+                    targetArrows.setAttribute('data-y', y);
+
+                    requestAnimationFrame(updateArrows);
+                } catch (e) {
+                    console.error(e.message);
+                    requestAnimationFrame(updateArrows);
+                }
             }
 
             requestAnimationFrame(updateArrows);
@@ -51,6 +68,12 @@ export function resolveInteractJS(): string {
     return `
         <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script><script src="https://cdn.jsdelivr.net/npm/arrow-line/dist/arrow-line.min.js"></script>
         <script>
+            function initMount(fn) {
+                setTimeout(() => {
+                    fn();
+                }, 200);
+            }   
+
             let x = 0;
             let y = 0;
 
@@ -78,15 +101,11 @@ export function resolveInteractJS(): string {
                     target.setAttribute('data-y', y);
                 })
             }
-
-            setTimeout(() => {
-                const svg = document.querySelector('#__arrowLineInternal-svg-canvas');
+            
+            initMount(() => {
                 const viewport = document.querySelector('#onoper-viewport');
-                if (svg && viewport && !viewport.contains(svg)) {
-                    viewport.appendChild(svg);
-                }
                 handleDrag(viewport);
-            }, 100);
+            });
         </script>
     `;
 }

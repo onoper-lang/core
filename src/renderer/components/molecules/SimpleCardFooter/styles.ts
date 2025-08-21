@@ -1,0 +1,25 @@
+import { MIDDLE_ROUNDED } from "../../../core/style/consts";
+
+export const style = `
+    .onoper-simple-card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .onoper-simple-footer-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .onoper-simple-footer-links {
+        display: flex;
+        align-items: center;
+        gap: -3px;
+    }
+    .onoper-simple-footer-link {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        ${MIDDLE_ROUNDED}
+    }
+`

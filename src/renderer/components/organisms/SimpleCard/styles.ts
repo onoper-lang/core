@@ -9,8 +9,9 @@ export const style = `
         flex-direction: column;
         padding: 12px;
         gap: 12px;
-        min-width: 25vw;
-        max-width: 400px;
+        min-width: 10vw;
+        width: 100%;
+        max-width: 280px;
         ${EXTERN_ROUNDED}
     }
 

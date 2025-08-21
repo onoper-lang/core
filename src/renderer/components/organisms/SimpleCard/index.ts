@@ -50,7 +50,7 @@ function SimpleCardTemplate(props: SimpleCardProps) {
                         label: "Problemas",
                         activable: claims.length > 0,
                         style: `background-color: ${CLAIM_COLOR};`,
-                        children: ClaimIcon(),
+                        children: ClaimIcon({}),
                     })
                 })}
                 ${ContentAccordion({ 
@@ -60,7 +60,7 @@ function SimpleCardTemplate(props: SimpleCardProps) {
                         label: "Comentários",
                         activable: comments.length > 0,
                         style: `background-color: ${COMMENT_COLOR};`,
-                        children: CommentIcon(),
+                        children: CommentIcon({}),
                     })
                 })}
             </div>

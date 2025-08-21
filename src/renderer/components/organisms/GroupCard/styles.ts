@@ -9,8 +9,9 @@ export const style = `
         flex-direction: column;
         padding: 0px;
         padding-top: 0;
-        min-width: 50vw;
-        max-width: 80vw;
+        min-width: 40vw;
+        width: 100%;
+        max-width: 50vw;
         ${OVER_ROUNDED}
         overflow: hidden;
     }

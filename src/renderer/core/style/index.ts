@@ -1,15 +1,15 @@
-import { ActivableButtonStyle } from "../../components/molecules/ActivableButton";
-import { ContentAccordionStyle } from "../../components/molecules/ContentAccordion";
-import { GroupFooterCardStyle } from "../../components/molecules/GroupCardFooter";
-import { SimpleFooterCardStyle } from "../../components/molecules/SimpleCardFooter";
-import { SimpleCardHeaderStyle } from "../../components/molecules/SimpleCardHeader";
+// import { ActivableButtonStyle } from "../../components/molecules/ActivableButton";
+// import { ContentAccordionStyle } from "../../components/molecules/ContentAccordion";
+// import { GroupFooterCardStyle } from "../../components/molecules/GroupCardFooter";
+// import { SimpleFooterCardStyle } from "../../components/molecules/SimpleCardFooter";
+// import { SimpleCardHeaderStyle } from "../../components/molecules/SimpleCardHeader";
 
 export const styleTable = new Map<string, string>([
-    ["ActivableButtonStyle", ActivableButtonStyle],
-    ["ContentAccordionStyle", ContentAccordionStyle],
-    ["GroupFooterCardStyle", GroupFooterCardStyle],
-    ["SimpleFooterCardStyle", SimpleFooterCardStyle],
-    ["SimpleCardHeaderStyle", SimpleCardHeaderStyle],
+    // ["ActivableButtonStyle", ActivableButtonStyle],
+    // ["ContentAccordionStyle", ContentAccordionStyle],
+    // ["GroupFooterCardStyle", GroupFooterCardStyle],
+    // ["SimpleFooterCardStyle", SimpleFooterCardStyle],
+    // ["SimpleCardHeaderStyle", SimpleCardHeaderStyle],
 ]);
 
 
@@ -19,6 +19,7 @@ export function resolveStyle(): string {
     styleTable.forEach((style) => {
         styleList.push(style);
     });
+
     return `
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');

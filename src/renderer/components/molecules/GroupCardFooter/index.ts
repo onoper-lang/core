@@ -1,41 +1,20 @@
-import { CLAIM_COLOR, COMMENT_COLOR, MIDDLE_ROUNDED } from "../../core/style/consts";
-import { generateColorFromId } from "../../core/utils";
-import { ClaimIcon } from "../atoms/ClaimIcon";
-import { CommentIcon } from "../atoms/CommentIcon";
-import { ActivableButton } from "./ActivableButton";
-import { ContentAccordion } from "./ContentAccordion";
+import { OnoperComponent } from "../../../core/component";
+import type { OnoperComponentProps } from "../../../core/component/types";
+import { CLAIM_COLOR, COMMENT_COLOR } from "../../../core/style/consts";
+import { generateColorFromId } from "../../../core/utils";
+import { ClaimIcon } from "../../atoms/ClaimIcon";
+import { CommentIcon } from "../../atoms/CommentIcon";
+import { ActivableButton } from "../ActivableButton";
+import { ContentAccordion } from "../ContentAccordion";
+import { style } from "./styles";
 
-export const GroupFooterCardStyle = `
-    .onoper-group-card-footer {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        align-items: start;
-        gap: 8px;
-    }
-
-    .onoper-group-card-footer .onoper-content-accordion-header {
-        max-width: max-content;
-    }
-    .onoper-group-footer-links {
-        display: flex;
-        align-items: center;
-        gap: -3px;
-    }
-    .onoper-group-footer-link {
-        width: 24px;
-        height: 24px;
-        flex-shrink: 0;
-        ${MIDDLE_ROUNDED}
-    }
-`
-
-interface GroupCardFooterProps {
+interface GroupCardFooterProps extends OnoperComponentProps {
     links: string[];
     claims: string[];
     comments: string[];
 }
 
-export function GroupCardFooter(props: GroupCardFooterProps) {
+export function GroupCardFooterTemplate(props: GroupCardFooterProps) {
     const { links, claims, comments } = props;
 
     return `
@@ -46,7 +25,7 @@ export function GroupCardFooter(props: GroupCardFooterProps) {
                 icon: ActivableButton({
                     activable: claims.length > 0,
                     label: "Problemas",
-                    children: ClaimIcon(),
+                    children: ClaimIcon({}),
                     style: `background-color: ${CLAIM_COLOR};`,
                 })
             })}
@@ -56,7 +35,7 @@ export function GroupCardFooter(props: GroupCardFooterProps) {
                 icon: ActivableButton({
                     activable: comments.length > 0,
                     label: "Comentários",
-                    children: CommentIcon(),
+                    children: CommentIcon({}),
                     style: `background-color: ${COMMENT_COLOR};`,
                 })
             })}
@@ -71,4 +50,15 @@ export function GroupCardFooter(props: GroupCardFooterProps) {
             </span>
         </div>
     `;
+}
+
+export function GroupCardFooter(props: GroupCardFooterProps): string {
+    const template = GroupCardFooterTemplate;
+
+    return new OnoperComponent({
+        props,
+        style,
+        logic: {},
+        template,
+    }).render();
 }
