@@ -1,3 +1,4 @@
+import fs from "fs";
 export const scriptTable = new Map<string, string>();
 
 export function resolveLogic(): string {
@@ -5,7 +6,7 @@ export function resolveLogic(): string {
     scriptTable.forEach((script) => {
         scriptList.push(script);
     });
-
+    
     return `
         <script>
             ${scriptList.join("\n")}
@@ -13,7 +14,7 @@ export function resolveLogic(): string {
     `;
 }
 
-export function resolveArrowConnections(elementList: string[][]): string {
+export function resolveArrowConnections(elementList: string[][], season: string): string {
     let resolvedCreateConnections = "";
     let resolvedDeleteConnections = "";
 
@@ -31,8 +32,11 @@ export function resolveArrowConnections(elementList: string[][]): string {
         }
     }
 
+    const arrowLineScript = fs.readFileSync(__dirname + "/scripts/arrow-line.min.js", "utf-8");
     return `
-        <script src="https://cdn.jsdelivr.net/npm/arrow-line/dist/arrow-line.min.js"></script>
+        <script>
+            ${arrowLineScript}
+        </script>
         <script>
             const arrows = {};
 
@@ -41,7 +45,7 @@ export function resolveArrowConnections(elementList: string[][]): string {
                     ${resolvedDeleteConnections}
                     ${resolvedCreateConnections}
 
-                    const viewport = document.querySelector('#onoper-viewport');
+                    const viewport = document.querySelector('.onoper-viewport_${season}');
                     if (!viewport) throw new Error("Viewport not found");
                     const x = viewport.getAttribute('data-x') || 0;
                     const y = viewport.getAttribute('data-y') || 0;
@@ -64,9 +68,12 @@ export function resolveArrowConnections(elementList: string[][]): string {
     `
 }
 
-export function resolveInteractJS(): string {
+export function resolveInteractJS(season: string): string {
+    const interactJS = fs.readFileSync(__dirname + "/scripts/interact.min.js", "utf-8");
     return `
-        <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script><script src="https://cdn.jsdelivr.net/npm/arrow-line/dist/arrow-line.min.js"></script>
+        <script>
+            ${interactJS}
+        </script>
         <script>
             function initMount(fn) {
                 setTimeout(() => {
@@ -103,7 +110,7 @@ export function resolveInteractJS(): string {
             }
             
             initMount(() => {
-                const viewport = document.querySelector('#onoper-viewport');
+                const viewport = document.querySelector('.onoper-viewport_${season}');
                 handleDrag(viewport);
             });
         </script>

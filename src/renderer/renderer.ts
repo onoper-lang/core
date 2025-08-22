@@ -4,10 +4,12 @@ import { Root } from "./components/organisms/Root";
 import { SimpleCard } from "./components/organisms/SimpleCard";
 import { resolveArrowConnections, resolveInteractJS, resolveLogic } from "./core/logic";
 import { resolveStyle } from "./core/style";
+import { v7 as uuid } from "uuid";
 
 export class OnoperRenderer {
     elementList: string[][] = [];
     currentNumber: number = -1;
+    season: string = uuid();
 
     private recursiveRender(item: OnoperIntermediaryDTO): string | null {
         this.currentNumber++;
@@ -39,7 +41,7 @@ export class OnoperRenderer {
             });
 
         } else if (item.type === "ROOT") {
-            return Root({ children });
+            return Root({ children, season: this.season });
         }
 
         return null;
@@ -52,9 +54,11 @@ export class OnoperRenderer {
             throw new Error("Invalid item type or structure");
         }
 
-        const resolvedArrowConnection = resolveArrowConnections(this.elementList);
-        const resolvedInteractJS = resolveInteractJS();
-        const resolvedStyle = resolveStyle();
+        const resolvedArrowConnection = resolveArrowConnections(
+            this.elementList, this.season
+        );
+        const resolvedInteractJS = resolveInteractJS(this.season);
+        const resolvedStyle = resolveStyle(this.season);
         const resolvedLogic = resolveLogic();
 
         const html = `
