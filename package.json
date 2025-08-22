@@ -1,14 +1,27 @@
 {
   "name": "onoper-core",
+  "version": "1.0.0",
+  "description": "Linguagem para transformar listas em fluxogramas",
+  "main": "dist/index.js",
   "module": "src/index.ts",
   "scripts": {
-    "build": "bun build src/index.ts --outdir dist --target module",
+    "build": "bun build src/index.ts --outdir dist --target=bun",
+    "prepublishOnly": "npm run build",
+    "publish": "npm publish --access public",
     "dev": "bun run server.ts",
     "start": "bun run dist/index.js",
     "test": "bun test"
   },
+  "keywords": [
+    "flowchart",
+    "diagram",
+    "visualization",
+    "compiler"
+  ],
+  "author": "victorhdsp",
+  "license": "Apache-2.0",
   "type": "module",
-  "private": true,
+  "private": false,
   "devDependencies": {
     "@types/bun": "latest"
   },

@@ -37,14 +37,18 @@ Nossos próximos passos incluem a construção de:
 Como Começar
 Para começar a explorar o core da linguagem Onoper, clone este repositório e instale as dependências:
 
+```bash
 git clone https://github.com/unoper/core.git
 cd core
 bun install
+```
 
 Uso
 Para executar o core da linguagem e testar a análise de um arquivo, use o seguinte comando:
 
+```bash
 bun run src/index.ts
+```
 
 Documentação
 A documentação detalhada sobre a sintaxe, semântica e exemplos de uso está disponível na pasta docs.
