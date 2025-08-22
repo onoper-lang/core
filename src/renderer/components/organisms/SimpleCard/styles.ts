@@ -10,7 +10,7 @@ export const style = `
         padding: 12px;
         gap: 12px;
         min-width: 180px;
-        width: 100%;
+        width: max-content;
         max-width: 280px;
         ${EXTERN_ROUNDED}
     }

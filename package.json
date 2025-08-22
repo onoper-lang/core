@@ -11,8 +11,8 @@
     "build": "bun run prebuild:deps && bun run build:js && bun run build:types",
     "prepublishOnly": "npm run build",
     "publish": "npm publish --access public",
-    "dev": "bun run src/server.ts",
-    "start": "bun run dist/index.js",
+    "dev": "bun src/server.ts",
+    "start": "bun dist/index.js",
     "test": "bun test"
   },
   "keywords": [
@@ -33,6 +33,7 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
+    "node-html-parser": "^7.0.1",
     "uuid": "^11.1.0"
   }
 }
