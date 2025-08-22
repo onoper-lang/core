@@ -1,80 +1,35 @@
-import { OnoperAttributeMetaChar, OnoperConfigMetaChar, OnoperElementMetaChar, OnoperLexerToken, type TokenType } from "../models/tokens";
+import { OnoperLexerToken } from "./tokenModel";
+import type { OnoperCommonAnalysis } from "./commonMetacaracteres";
+import type { OnoperConfigAnalysis } from "./configMetacaracteres";
+import { ERROR } from "./error";
 
 export class OnoperLexicalAnalysis {
     private passConfigChar: boolean = false;
-    private identSize: number = 4;
+    public version: number = 1;
+    public identSize: number = 2;
 
-    private createConfigRegex(): RegExp {
-        const configMetaChar = Object.values(OnoperConfigMetaChar).join('|');
-        const regex = `(${configMetaChar})( +)(.*)`;
-        return new RegExp(regex);
-    }
+    constructor(
+        private ConfigAnalysis: OnoperConfigAnalysis,
+        private CommonAnalysis: OnoperCommonAnalysis
+    ) { }
 
-    private createCommonRegex(): RegExp {
-        const elementMetachar = Object.values(OnoperElementMetaChar).join('|');
-        const attributeMetachar = Object.values(OnoperAttributeMetaChar).join('|');
+    private extractToken (content: string, line: number): OnoperLexerToken {
+        if (this.passConfigChar === false) {
+            const version = this.ConfigAnalysis.version;
+            const identSize = this.ConfigAnalysis.identSize;
+            const token = this.ConfigAnalysis.extractToken(content, line);
 
-        const regex = `( {0,})(${elementMetachar})?(${attributeMetachar})?(.*)`;
-        return new RegExp(regex);
-    }
-
-    private intentSelector(content: string, line: number): OnoperLexerToken {
-        let match = content.match(this.createConfigRegex());
-        
-        if (this.passConfigChar === false && match) {
-            const token = new OnoperLexerToken([], line, 0);
-            const [_1, configChar, _2, value] = match;
-
-            const type = Object.entries(OnoperConfigMetaChar)
-                .find(([_, val]) => val === configChar)?.[0] as TokenType;
-
-            if (!type || !value) {
-                throw new Error(`Unknown config character: ${configChar}`);
-            }
-
-            if (type === "IDENT") {
-                this.identSize = parseInt(value);
-            }
-            token.addToken(type, value.trim());
-
-            return token;
+            if (version) this.version = version;
+            if (identSize) this.identSize = identSize;
+            if (token) return token;
         }
-        
         this.passConfigChar = true;
-        match = content.match(this.createCommonRegex());
-        if (!match) throw new Error(`No match found for line: ${line}`);
 
-        let [_1, whitespace, elementValue, attributeValue, value] = match;
-
-        const element = Object.entries(OnoperElementMetaChar)
-                .find(([_, val]) => val === elementValue)?.[0] as TokenType || undefined;
-
-        const ident = whitespace ? whitespace.length / this.identSize : 0;
-        const token = new OnoperLexerToken([], line, ident);
-
-        if (!value) {
-            throw new Error(`Unknown element or value at line ${line}: ${content}`);
-        }
-
-        if (value.startsWith("[")) {
-            const localValue = value.split(/(\[|\])/g).filter((v) => v.trim() !== "");
-            attributeValue = localValue[1];
-            if (localValue[2] !== "]") {
-                throw new Error(`Expected ']' at line ${line}, found: ${localValue[2]}`);
-            }
-            value = localValue[3];
-        }
-
-        if (!value) {
-            throw new Error(`Unknown element or value at line ${line}: ${content}`);
-        }
-
-        if (attributeValue) {
-            token.addToken("NAMED", attributeValue.trim());
-        }
-
-        token.addToken(element || "TASK", value.trim());
-        return token;
+        return this.CommonAnalysis.extractToken(
+            this.identSize,
+            content,
+            line
+        );
     }
 
     execute(content_raw: string): OnoperLexerToken[]{
@@ -85,10 +40,10 @@ export class OnoperLexicalAnalysis {
             const content = lines[lineIndex];
             if (!content) continue;
 
-            const token = this.intentSelector(content, lineIndex);
+            const token = this.extractToken(content, lineIndex);
 
             if (!token) {
-                console.error(`Failed to parse line ${lineIndex + 1}: ${content}`);
+                console.error(ERROR.FAILED_TO_PARSE_LINE(lineIndex, content));
                 continue;
             }
 
