@@ -24,7 +24,7 @@ const baseHtml = `<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Onoper Document</title>
 </head>
-<body>
+<body style="margin: 0; padding: 0; width: 100vw; height: 100vh; overflow: hidden;">
     ${htmlContent}
 </body>
 </html>`;

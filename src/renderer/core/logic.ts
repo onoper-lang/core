@@ -1,4 +1,4 @@
-import fs from "fs";
+import { DEPS_ARROW_LINE, DEPS_INTERACT_JS } from "./scripts/embedded-deps";
 export const scriptTable = new Map<string, string>();
 
 export function resolveLogic(): string {
@@ -32,10 +32,9 @@ export function resolveArrowConnections(elementList: string[][], season: string)
         }
     }
 
-    const arrowLineScript = fs.readFileSync(__dirname + "/scripts/arrow-line.min.js", "utf-8");
     return `
         <script>
-            ${arrowLineScript}
+            ${DEPS_ARROW_LINE}
         </script>
         <script>
             const arrows = {};
@@ -45,20 +44,22 @@ export function resolveArrowConnections(elementList: string[][], season: string)
                     ${resolvedDeleteConnections}
                     ${resolvedCreateConnections}
 
+                    if (!window) throw new Error("Window not found");
                     const viewport = document.querySelector('.onoper-viewport_${season}');
-                    if (!viewport) throw new Error("Viewport not found");
+                    if (!viewport) return;
                     const x = viewport.getAttribute('data-x') || 0;
                     const y = viewport.getAttribute('data-y') || 0;
     
                     const targetArrows = document.querySelector('#__arrowLineInternal-svg-canvas');
-                    if (!targetArrows) throw new Error("Arrows not found");
+                    if (!targetArrows) return;
+
                     targetArrows.style.transform = \`translate(\${x}px, \${y}px)\`;
                     targetArrows.setAttribute('data-x', x);
                     targetArrows.setAttribute('data-y', y);
 
                     requestAnimationFrame(updateArrows);
+
                 } catch (e) {
-                    console.error(e.message);
                     requestAnimationFrame(updateArrows);
                 }
             }
@@ -69,10 +70,9 @@ export function resolveArrowConnections(elementList: string[][], season: string)
 }
 
 export function resolveInteractJS(season: string): string {
-    const interactJS = fs.readFileSync(__dirname + "/scripts/interact.min.js", "utf-8");
     return `
         <script>
-            ${interactJS}
+            ${DEPS_INTERACT_JS}
         </script>
         <script>
             function initMount(fn) {

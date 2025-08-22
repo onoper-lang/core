@@ -4,6 +4,10 @@ export const style = (season: string) => `
     .onoper-root_${season} {
         width: 100%;
         height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
     }
 
     .onoper-viewport_${season} {
@@ -14,6 +18,8 @@ export const style = (season: string) => `
         gap: 42px;
         padding: 24px;
         background-color: ${ROOT_BACKGROUND_COLOR};
-        height: 100%;
+        height: min-content;
+        width: min-content;
+        margin: auto;
     }
 `

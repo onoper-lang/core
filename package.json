@@ -1,13 +1,14 @@
 {
   "name": "onoper-core",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Linguagem para transformar listas em fluxogramas",
   "main": "dist/index.js",
   "module": "src/index.ts",
   "scripts": {
+    "prebuild:deps": "bun run src/preBuildDeps.ts",
     "build:js": "bun build src/index.ts --outdir dist",
     "build:types": "tsc --emitDeclarationOnly --outDir dist",
-    "build": "bun run build:js && bun run build:types",
+    "build": "bun run prebuild:deps && bun run build:js && bun run build:types",
     "prepublishOnly": "npm run build",
     "publish": "npm publish --access public",
     "dev": "bun run src/server.ts",

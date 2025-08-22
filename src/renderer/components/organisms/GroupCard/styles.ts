@@ -9,9 +9,8 @@ export const style = `
         flex-direction: column;
         padding: 0px;
         padding-top: 0;
-        min-width: 40vw;
-        width: 100%;
-        max-width: 50vw;
+        min-width: min-content;
+        width: max-content;
         ${OVER_ROUNDED}
         overflow: hidden;
     }
@@ -35,13 +34,15 @@ export const style = `
     .onoper-group-card-children {
         display: flex;
         gap: 42px;
-        justify-content: center;
         align-items: center;
         padding: 0px 12px;
-        padding-bottom: 36px;
+        padding-bottom: 12px;
+        width: 100%;
+        height: 100%;
     }
     .onoper-group-card-footer-container {
         padding: 0px 12px;
+        padding-top: 24px;
         padding-bottom: 12px;
     }
 `;

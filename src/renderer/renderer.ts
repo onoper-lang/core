@@ -2,8 +2,8 @@ import type { OnoperIntermediaryDTO } from "../models/intermediary";
 import { GroupCard } from "./components/organisms/GroupCard";
 import { Root } from "./components/organisms/Root";
 import { SimpleCard } from "./components/organisms/SimpleCard";
-import { resolveArrowConnections, resolveInteractJS, resolveLogic } from "./core/logic";
-import { resolveStyle } from "./core/style";
+import { resolveArrowConnections, resolveInteractJS, resolveLogic, scriptTable } from "./core/logic";
+import { resolveStyle, styleTable } from "./core/style";
 import { v7 as uuid } from "uuid";
 
 export class OnoperRenderer {
@@ -48,6 +48,9 @@ export class OnoperRenderer {
     }
 
     render(item: OnoperIntermediaryDTO): string {
+        styleTable.clear();
+        scriptTable.clear();
+
         const resolvedHTML = this.recursiveRender(item);
         
         if (!resolvedHTML) {
@@ -62,12 +65,30 @@ export class OnoperRenderer {
         const resolvedLogic = resolveLogic();
 
         const html = `
-            ${resolvedStyle}
-            ${resolvedLogic}
-            ${resolvedHTML}
-            ${resolvedArrowConnection}
-            ${resolvedInteractJS}
+            <!DOCTYPE html>
+                <html lang="pt-BR">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    ${resolvedStyle}
+                    ${resolvedArrowConnection}
+                    ${resolvedInteractJS}
+                </head>
+                <body style="width: 100vw; height: 100vh; margin: 0; padding: 0; overflow: hidden;">
+                    ${resolvedHTML}
+                    ${resolvedLogic}
+                </body>
+            </html>
         `.replace(/\n/g, '').replace(/\s+/g, ' ').trim();
-        return html;
+
+        const encodedHtml = btoa(unescape(encodeURIComponent(html)));
+
+        return `
+            <iframe 
+            src="data:text/html;base64,${encodedHtml}"
+            style="width: 100%; height: 100%; border: none;"
+            sandbox="allow-scripts allow-same-origin"
+            ></iframe>
+        `;
     }
 }
