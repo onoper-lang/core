@@ -5,6 +5,8 @@
     "target": "ESNext",
     "module": "Preserve",
     "moduleDetection": "force",
+    "declaration": true,
+    "emitDeclarationOnly": true,
     "jsx": "react-jsx",
     "allowJs": true,
     "outDir": "./dist",
@@ -27,6 +29,7 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": false,
-
-  }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules", "dist", "src/**/*.test.ts", "src/**/*.test.tsx", "src/**/*.spec.ts", "src/**/*.spec.tsx"]
 }

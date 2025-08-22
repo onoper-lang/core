@@ -1,4 +1,4 @@
-import { randomUUIDv7 } from "bun";
+import { v7 as uuid } from "uuid"
 
 export type IntermediaryType = "TASK" | "ROOT";
 
@@ -29,7 +29,7 @@ export class OnoperIntermediaryEntity {
     comments: string[] = [];
 
     constructor(dto: CreateIntermediaryDTO) {
-        this.uid = dto.UID || randomUUIDv7();
+        this.uid = dto.UID || uuid();
         this.namedID = dto.namedID || "";
         this.type = dto.type;
         this.content = dto.content;

@@ -1,4 +1,4 @@
-import { Onoper } from './src/index';
+import { Onoper } from './index';
 
 const onoper = new Onoper();
 
