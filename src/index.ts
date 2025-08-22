@@ -3,6 +3,7 @@ import { OnoperCommonAnalysis } from "./lexicalAnalysis/commonMetacaracteres";
 import { OnoperConfigAnalysis } from "./lexicalAnalysis/configMetacaracteres";
 import { OnoperLexicalAnalysis } from "./lexicalAnalysis/lexicalAnalysis";
 import { OnoperRenderer } from "./renderer/renderer";
+import { OnoperSemanticAnalysis } from "./semanticAnalysis/semanticAnalysis";
 import { OnoperSyntacticAnalysis } from "./syntacticAnalysis/syntacticAnalysis";
 
 export class Onoper {
@@ -14,6 +15,9 @@ export class Onoper {
 
         const syntacticAnalysis = new OnoperSyntacticAnalysis();
         syntacticAnalysis.execute(lexedList);
+
+        const semanticAnalysis = new OnoperSemanticAnalysis();
+        semanticAnalysis.execute(lexedList);
 
         const intermediary = new OnoperIntermediary();
         const intermediaryResult = intermediary.execute(lexedList);

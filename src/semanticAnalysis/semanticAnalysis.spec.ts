@@ -1,4 +1,4 @@
-import { OnoperLexerToken } from '../models/tokens';
+import { OnoperLexerToken } from '../lexicalAnalysis/tokenModel';
 import { expect, test } from "bun:test";
 import { OnoperSemanticAnalysis } from "./semanticAnalysis";
 
@@ -21,7 +21,7 @@ test("should error because linked needs a valid ID", () => {
 });
 
 
-test.todo("should error because has duplicated id", () => {
+test("should error because has duplicated id", () => {
     const parser = new OnoperSemanticAnalysis();
 
     const token1 = new OnoperLexerToken([], 0, 0);
@@ -35,4 +35,20 @@ test.todo("should error because has duplicated id", () => {
     const tokens = [token1, token2];
 
     expect(() => parser.execute(tokens)).toThrow("Named token \"linked\" is duplicated.");
+});
+
+test("should not error because has valid linked id", () => {
+    const parser = new OnoperSemanticAnalysis();
+
+    const token1 = new OnoperLexerToken([], 0, 0);
+    token1.addToken("TASK", "task1");
+    token1.addToken("NAMED", "linked");
+
+    const token2 = new OnoperLexerToken([], 1, 0);
+    token2.addToken("TASK", "task2");
+    token2.addToken("LINK", "linked");
+
+    const tokens = [token1, token2];
+
+    expect(() => parser.execute(tokens)).not.toThrow();
 });

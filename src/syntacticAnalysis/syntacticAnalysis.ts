@@ -1,4 +1,4 @@
-import { OnoperLexerToken, type TokenType } from "../models/tokens";
+import { OnoperLexerToken, type TokenTypeValue } from "../lexicalAnalysis/tokenModel";
 
 const ERROR = {
     NOT_PERMITTED_IN_ROOT: (token: string) => `Token "${token}" is not permitted in the root level.`,
@@ -9,9 +9,9 @@ const ERROR = {
 }
 
 const SYNTAX_PERMISSIONS = {
-    NOT_PERMITTED_IN_ROOT: new Set(["CLAIM", "LINK", "COMMENT"]) as Set<TokenType>,
-    CHILDREN_NOT_PERMITTED: new Set(["CLAIM", "LINK", "COMMENT"]) as Set<TokenType>,
-    NEED_PARENT_TASK: new Set(["CLAIM", "LINK", "COMMENT"]) as Set<TokenType>,
+    NOT_PERMITTED_IN_ROOT: new Set(["CLAIM", "LINK", "COMMENT"]) as Set<TokenTypeValue>,
+    CHILDREN_NOT_PERMITTED: new Set(["CLAIM", "LINK", "COMMENT"]) as Set<TokenTypeValue>,
+    NEED_PARENT_TASK: new Set(["CLAIM", "LINK", "COMMENT"]) as Set<TokenTypeValue>,
     //ELEMENT_WITHOUT_CONTENT: new Set(["CLAIM", "LINK", "COMMENT", "TASK", "IDENT", "VERSION"]) as Set<TokenType>,
 }
 
