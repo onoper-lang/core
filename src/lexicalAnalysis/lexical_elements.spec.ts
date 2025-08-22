@@ -76,7 +76,7 @@ test("Should parse Tasks with comments", () => {
 
 test("Shold parser Tasks with links", () => {
     const content = (
-        `Onboarding cliente\n` +
+        `onboarding cliente\n` +
         `  [collect_docs]Coletar Docs\n` +
         `    ! Cliente não envia docs\n` +
         `  Criar conta\n` +
@@ -86,7 +86,7 @@ test("Shold parser Tasks with links", () => {
 
     const result = lexer.execute(content);
     const expected: OnoperToken[][] = [
-        [{ type: "TASK", value: "Onboarding cliente" }],
+        [{ type: "TASK", value: "onboarding cliente" }],
         [{ type: "NAMED", value: "collect_docs" }, { type: "TASK", value: "Coletar Docs" }],
         [{ type: "CLAIM", value: "Cliente não envia docs" }],
         [{ type: "TASK", value: "Criar conta" }],

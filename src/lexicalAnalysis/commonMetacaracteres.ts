@@ -5,7 +5,7 @@ export class OnoperCommonAnalysis {
     private createCommonRegex(): RegExp {
         const elementMetachar = Object.keys(OnoperElementMetaChar).join('|');
         const attributeMetachar = Object.keys(OnoperAttributeMetaChar).join('|');
-        const regex = `( {0,})(${elementMetachar})? {0,}?(${attributeMetachar})? {0,}?([a-z]|[A-Z].*)`;
+        const regex = `( {0,})(${elementMetachar})? {0,}?(${attributeMetachar})? {0,}?([a-z].*|[A-Z].*)`;
         return new RegExp(regex);
     }
 
