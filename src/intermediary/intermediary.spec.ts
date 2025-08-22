@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test";
 import { OnoperIntermediary } from "./intermediary";
-import { OnoperLexerToken } from "../models/tokens";
+import { OnoperLexerToken } from "../lexicalAnalysis/tokenModel";
 
 test("OnoperIntermediary should transform tokens correctly", () => {
     const intermediary = new OnoperIntermediary();
@@ -106,8 +106,8 @@ test("linked with valid ID", () => {
     token6.addToken("LINK", "linked");
 
     const token7 = new OnoperLexerToken([], 5, 0);
-    token7.addToken("TASK", "task3");
     token7.addToken("NAMED", "linked2");
+    token7.addToken("TASK", "task3");
 
     const tokens = [token1, token2, token3, token4, token5, token6, token7];
 

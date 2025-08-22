@@ -1,10 +1,16 @@
 import { OnoperIntermediaryEntity, type OnoperIntermediaryDTO } from "../models/intermediary";
-import type { OnoperLexerToken } from "../models/tokens";
+import type { OnoperLexerToken } from "../lexicalAnalysis/tokenModel";
 
 interface HistoryEntity {
     ident: number;
     item: OnoperIntermediaryEntity;
 }
+
+// "NAMED"
+// "TASK",
+// "LINK",
+// "CLAIM",
+// "COMMENT"
 
 export class OnoperIntermediary {
     execute(items: OnoperLexerToken[]): OnoperIntermediaryDTO {
@@ -16,45 +22,49 @@ export class OnoperIntermediary {
         const history: HistoryEntity[] = [{ident: -1, item: root}];
 
         for (const item of items) {
+            let currentNamedID: string | undefined;
+
+            while (true) {
+                const lastItemInHistory = history[history.length - 1];
+                if (!lastItemInHistory) break;
+                if (lastItemInHistory.ident < item.position.ident) {
+                    break;
+                }
+                history.pop();
+            }
+            const lastItemInHistoryAfterPop = history[history.length - 1];
+            if (!lastItemInHistoryAfterPop) continue;
+
             for (const token of item.getTokens()) {
-                let lastItemInHistory = history[history.length - 1];
-                if (!lastItemInHistory) continue;
-                
+                if (token.type === "CLAIM")
+                    lastItemInHistoryAfterPop.item.addClaim(token.value);
+                if (token.type === "COMMENT")
+                    lastItemInHistoryAfterPop.item.addComment(token.value);
+                if (token.type === "LINK")
+                    lastItemInHistoryAfterPop.item.addLink(token.value);
+                if (token.type === "NAMED")
+                    currentNamedID = token.value;
                 if (token.type === "TASK") {
                     const newItem = new OnoperIntermediaryEntity({
                         type: "TASK",
                         content: token.value
                     });
-                    while (lastItemInHistory) {
-                        if (lastItemInHistory.ident < item.position.ident) {
-                            break;
-                        }
-                        history.pop();
-                        lastItemInHistory = history[history.length - 1];
-                    }
-                    if (!lastItemInHistory) continue;
 
-                    lastItemInHistory.item.addChild(newItem);
-
+                    lastItemInHistoryAfterPop.item.addChild(newItem);
+                    
                     history.push({
                         ident: item.position.ident,
                         item: newItem
                     });
                 }
-                
-                if (token.type === "NAMED") {
-                    lastItemInHistory.item.namedID = token.value
-                }
-                if (token.type === "LINK") {
-                    lastItemInHistory.item.addLink(token.value);
-                }
-                if (token.type === "CLAIM") {
-                    lastItemInHistory.item.addClaim(token.value);
-                }
-                if (token.type === "COMMENT") {
-                    lastItemInHistory.item.addComment(token.value);
-                }
             }
+
+            if (currentNamedID) {
+                const lastItemInHistoryForNamed = history[history.length - 1];
+                if (!lastItemInHistoryForNamed) continue;
+                lastItemInHistoryForNamed.item.namedID = currentNamedID;
+            }
+
         }
 
         return root.toDTO()
