@@ -20,8 +20,13 @@ export const style = `
         justify-content: center;
         align-items: center;
         gap: 6px;
+        padding: 12px;
         padding-top: 12px;
         padding-bottom: 36px;
+    }
+    .onoper-group-card-header h2 {
+        width: max-content;
+        max-width: 100%;
     }
     .onoper-group-card-header[data-named] {
         padding-top: 0px
