@@ -34,6 +34,11 @@ export const style = `
         opacity: 0;
         max-height: 0px;
     }
+    .onoper-simple-card[data-active="true"] .onoper-simple-card-header h3,
+    .onoper-simple-card:hover .onoper-simple-card-header h3 {
+        -webkit-line-clamp: 5;
+                line-clamp: 5;
+    }
 
     .onoper-simple-card[data-active="false"] .onoper-simple-card-main,
     .onoper-simple-card[data-active="none"] .onoper-simple-card-main {
