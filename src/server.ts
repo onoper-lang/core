@@ -4,19 +4,20 @@ const onoper = new Onoper();
 
 // 1. Gerar o conteúdo HTML
 const htmlContent = onoper.execute(`
-- [organizar_pensamentos] Organizar Pensamentos com LLM
-- Este é o objetivo principal do projeto: usar LLMs para estruturar ideias.Este é o objetivo principal do projeto: usar LLMs para estruturar ideias.
-- [capturar_ideias] Capturar Ideias Iniciais
-  # O usuário insere seus pensamentos brutos, anotações, rascunhos, etc.
-  ! Pensamentos podem estar desorganizados ou incompletos nesta fase.
-- [processar_llm] Processar Ideias com LLM
-  # O LLM analisa e interpreta as informações fornecidas pelo usuário.
-- [gerar_estrutura] Gerar Estrutura e Tópicos
-  # O LLM apresenta as ideias de forma organizada, como tópicos, seções, resumos ou planos de ação.
-- [revisar_ajustar] Revisar e Ajustar
-  # O usuário avalia a saída do LLM, faz modificações, adiciona detalhes ou refina a estrutura.
-  > capturar_ideias
-  # Pode ser necessário voltar para refinar as ideias iniciais ou adicionar mais detalhes com base na estrutura gerada.
+[onoper_solucao]Onoper - A Solução do Usuário para Visualização
+  Problemas Atuais (Bugs Identificados)
+    Input Textarea: cresce excessivamente, obscurecendo o chat
+  [ui_solucoes]Soluções Propostas/Implementadas (UI/UX)
+    [input_textarea_solucao]Input Textarea
+      Limitar altura a 8 linhas, adicionar barra de rolagem
+      Botão flutuante (abrir/fechar) no canto inferior direito
+      Mecanismo de feedback para > 8 linhas
+        Apitar/piscar para alertar sobre expansão
+    Itens Longos
+      Permitir expansão até 5 linhas
+      Objetivo: nome do item com no máximo 1 ou 2 linhas
+    Resposta LLM
+      Exibição em drawer lateral (metade da página)
 `) || 
 "<h1>Erro ao processar o documento</h1>";
 

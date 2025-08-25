@@ -2,7 +2,7 @@ import type { OnoperIntermediaryDTO } from "../models/intermediary";
 import { GroupCard } from "./components/organisms/GroupCard";
 import { Root } from "./components/organisms/Root";
 import { SimpleCard } from "./components/organisms/SimpleCard";
-import { resolveArrowConnections, resolveInteractJS, resolveLogic, scriptTable } from "./core/logic";
+import { resolveArrowConnections, resolveGroupDeepDirection, resolveInteractJS, resolveLogic, scriptTable } from "./core/logic";
 import { resolveStyle, styleTable } from "./core/style";
 import { v7 as uuid } from "uuid";
 
@@ -63,6 +63,7 @@ export class OnoperRenderer {
         const resolvedInteractJS = resolveInteractJS(this.season);
         const resolvedStyle = resolveStyle(this.season);
         const resolvedLogic = resolveLogic();
+        const resolvedGroupDeepDirection = resolveGroupDeepDirection(this.season)
 
         const html = `
             <!DOCTYPE html>
@@ -73,6 +74,7 @@ export class OnoperRenderer {
                     ${resolvedStyle}
                     ${resolvedArrowConnection}
                     ${resolvedInteractJS}
+                    ${resolvedGroupDeepDirection}
                 </head>
                 <body style="width: 100vw; height: 100vh; margin: 0; padding: 0; overflow: hidden;">
                     ${resolvedHTML}

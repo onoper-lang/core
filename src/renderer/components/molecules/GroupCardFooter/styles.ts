@@ -2,10 +2,13 @@ import { CLAIM_COLOR, COMMENT_COLOR, MIDDLE_ROUNDED } from "../../../core/style/
 
 export const style = `
     .onoper-group-card-footer {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        display: flex;
         align-items: start;
         gap: 8px;
+    }
+    .onoper-group-card-footer >*{
+        width: max-content;
+        max-width: 100%;
     }
 
     .onoper-group-card-footer .onoper-content-accordion-header {

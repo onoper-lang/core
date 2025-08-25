@@ -40,6 +40,10 @@ export const style = `
         width: 100%;
         height: 100%;
     }
+    .onoper-group-card-children >* {
+        margin-left: auto;
+        margin-right: auto;
+    }
     .onoper-group-card-footer-container {
         padding: 0px 12px;
         padding-top: 24px;

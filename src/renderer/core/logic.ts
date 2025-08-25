@@ -116,3 +116,36 @@ export function resolveInteractJS(season: string): string {
         </script>
     `;
 }
+
+export function resolveGroupDeepDirection(season: string): string {
+    return `
+        <script>
+            function initMount(fn) {
+                setTimeout(() => {
+                    fn();
+                }, 200);
+            }   
+            function applyFlexDirection(element, depth = 0) {
+                let currentDepth = depth;
+
+                if (element.classList.contains('onoper-group-card-children')) {
+                    if (depth % 2 === 0) {
+                        element.style.flexDirection = 'row';
+                    } else {
+                        element.style.flexDirection = 'column';
+                    }
+                    currentDepth++;
+                }
+
+                const children = element.children;
+                for (const child of children) {
+                    applyFlexDirection(child, currentDepth);
+                }
+            }
+            initMount(() => {
+                const viewport = document.querySelector('.onoper-viewport_${season}');
+                applyFlexDirection(viewport)
+            });
+        </script>`
+};
+    
