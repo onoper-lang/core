@@ -22,15 +22,21 @@ export const style = `
         transition: all 0.3s ease-in-out;
         max-height: 9999px;
     }
+    .onoper-simple-card-main[data-has-content="false"] {
+        display: none;
+    }
 
     .onoper-simple-card-footer-container {
         transition: all 0.3s;
         max-height: 9999px;
         opacity: 1;
     }
-     
+    .onoper-simple-card-footer-container[data-has-content="false"] {
+        display: none;
+    }
+
     .onoper-simple-card[data-active="true"] .onoper-simple-card-footer-container,
-    .onoper-simple-card[data-active="false"]:hover .onoper-simple-card-footer-container {
+    .onoper-simple-card:hover .onoper-simple-card-footer-container {
         opacity: 0;
         max-height: 0px;
     }
@@ -40,8 +46,7 @@ export const style = `
                 line-clamp: 5;
     }
 
-    .onoper-simple-card[data-active="false"] .onoper-simple-card-main,
-    .onoper-simple-card[data-active="none"] .onoper-simple-card-main {
+    .onoper-simple-card[data-active="false"] .onoper-simple-card-main {
         opacity: 0;
         max-height: 0px;
     }
@@ -50,7 +55,7 @@ export const style = `
         border: 1px solid ${ACTIVE_COLOR};
     }
 
-    .onoper-simple-card[data-active="false"]:hover .onoper-simple-card-main {
+    .onoper-simple-card:hover .onoper-simple-card-main {
         position: relative;
         opacity: 1;
         max-height: 9999px;

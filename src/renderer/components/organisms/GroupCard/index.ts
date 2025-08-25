@@ -32,7 +32,10 @@ export function GroupCardTemplate(props: GroupCardProps) {
             <div class="onoper-group-card-children">
                 ${children}
             </div>
-            <div class="onoper-group-card-footer-container">
+            <div
+                class="onoper-group-card-footer-container"
+                data-has-content="${links.length > 0 || claims.length > 0 || comments.length > 0}"
+            >
                 ${GroupCardFooter({ links, claims, comments })}
             </div>
         </div>

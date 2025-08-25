@@ -35,14 +35,14 @@ function SimpleCardTemplate(props: SimpleCardProps) {
         <div
             id="id_${props.uid}"
             class="onoper-simple-card ${className || ''}"
-            ${claims.length > 0 || comments.length > 0 ?
-                'data-active="false"' :
-                'data-active="none"'
-            }
+            data-active="false"
             onclick="handleSelectClick('${props.uid}')"
         >
             ${SimpleCardHeader({ title, named })}
-            <div class="onoper-simple-card-main">
+            <div
+                class="onoper-simple-card-main"
+                data-has-content="${claims.length > 0 || comments.length > 0}"
+            >
                 ${ContentAccordion({ 
                     title: "Problemas",
                     list: claims,
@@ -64,7 +64,10 @@ function SimpleCardTemplate(props: SimpleCardProps) {
                     })
                 })}
             </div>
-            <div class="onoper-simple-card-footer-container">
+            <div
+                class="onoper-simple-card-footer-container"
+                data-has-content="${links.length > 0 || claims.length > 0 || comments.length > 0}"
+            >
                 ${SimpleCardFooter({ links, claims, comments })}
             </div>
         </div>

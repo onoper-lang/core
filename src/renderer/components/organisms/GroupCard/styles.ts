@@ -20,11 +20,12 @@ export const style = `
         justify-content: center;
         align-items: center;
         gap: 6px;
-        padding: 12px;
         padding-top: 12px;
         padding-bottom: 36px;
     }
-    .onoper-group-card-header h2 {
+    .onoper-group-card-header .onoper-group-card-title {
+        padding-left: 12px;
+        padding-right: 12px;
         width: max-content;
         max-width: 100%;
     }
@@ -53,5 +54,8 @@ export const style = `
         padding: 0px 12px;
         padding-top: 24px;
         padding-bottom: 12px;
+    }
+    .onoper-group-card-footer-container[data-has-content="false"] {
+        display: none;
     }
 `;

@@ -4,20 +4,29 @@ const onoper = new Onoper();
 
 // 1. Gerar o conteúdo HTML
 const htmlContent = onoper.execute(`
-[onoper_solucao]Onoper - A Solução do Usuário para Visualização
-  Problemas Atuais (Bugs Identificados)
-    Input Textarea: cresce excessivamente, obscurecendo o chat
-  [ui_solucoes]Soluções Propostas/Implementadas (UI/UX)
-    [input_textarea_solucao]Input Textarea
-      Limitar altura a 8 linhas, adicionar barra de rolagem
-      Botão flutuante (abrir/fechar) no canto inferior direito
-      Mecanismo de feedback para > 8 linhas
-        Apitar/piscar para alertar sobre expansão
-    Itens Longos
-      Permitir expansão até 5 linhas
-      Objetivo: nome do item com no máximo 1 ou 2 linhas
-    Resposta LLM
-      Exibição em drawer lateral (metade da página)
+Agente Multi-Fonte AI
+  Processo de Prebuild de Dados
+    Acessar Bancos de Dados
+    Resumir Informações do BD
+    Salvar Resumos em Arquivos
+  Fluxo de Resposta
+    Buscar em RAG de Arquivos
+      # Utiliza busca semântica devido à dificuldade de classificação manual.
+      ! Critério para "não ser capaz de responder" precisa ser definido.
+    Se RAG não responder
+      Verificar Bancos de Dados
+        # Utiliza os resumos gerados no prebuild para entender o conteúdo dos BDs.
+        ! Como decidir qual BD consultar?
+    Se BDs não responderem
+      Buscar na Internet via CURL
+        # Última opção de busca.
+        ! Como formular a query de busca para sites como o Google?
+        ! Como parsear o HTML/JSON retornado pelo CURL?
+        ! Necessidade de aprovação para CURL de busca na internet?
+        Se usuário fornecer link
+          Acessar link diretamente
+        Se não houver link
+          Acessar sites comuns (ex: Google)
 `) || 
 "<h1>Erro ao processar o documento</h1>";
 
