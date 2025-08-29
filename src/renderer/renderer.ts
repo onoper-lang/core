@@ -1,26 +1,17 @@
-import type { OnoperIntermediaryDTO } from "../models/intermediary";
-import { GroupCard } from "./components/organisms/GroupCard";
-import { Root } from "./components/organisms/Root";
-import { SimpleCard } from "./components/organisms/SimpleCard";
-import { resolveArrowConnections, resolveGroupDeepDirection, resolveInteractJS, resolveLogic, scriptTable } from "./core/logic";
-import { resolveStyle, styleTable } from "./core/style";
-import { v7 as uuid } from "uuid";
+import type { OnoperIntermediaryDTO } from "../intermediary/type";
+import { ComponentRegistry } from "../prebuild/entry";
+import { DEP_LOGIC, DEP_STYLE } from "./bundle";
+import { collectResultSync } from "@lit-labs/ssr/lib/render-result";
+import type { TemplateResult } from "lit-html";
+import { render } from "@lit-labs/ssr";
 
 export class OnoperRenderer {
-    elementList: string[][] = [];
-    currentNumber: number = -1;
-    season: string = uuid();
-
-    private recursiveRender(item: OnoperIntermediaryDTO): string | null {
-        this.currentNumber++;
-        this.elementList.push([]);
-
-        this.elementList[this.currentNumber]?.push(...item.children.map(child => child.UID));
-        const children = item.children.map(child => this.recursiveRender(child)).join("");
+    private recursiveRender(item: OnoperIntermediaryDTO): TemplateResult | null {
+        const children = item.children.map(child => this.recursiveRender(child));
 
         if (item.type === "TASK") {
-            if (children) {
-                return GroupCard({
+            if (children.length > 0) {
+                return ComponentRegistry.GroupCard({
                     uid: item.UID,
                     title: item.content,
                     named: item.namedID,
@@ -30,8 +21,8 @@ export class OnoperRenderer {
                     children
                 });
             }
-
-            return SimpleCard({
+            
+            return ComponentRegistry.SimpleCard({
                 uid: item.UID,
                 title: item.content,
                 named: item.namedID,
@@ -41,29 +32,19 @@ export class OnoperRenderer {
             });
 
         } else if (item.type === "ROOT") {
-            return Root({ children, season: this.season });
+            return ComponentRegistry.Root({ children })
         }
 
         return null;
     }
 
     render(item: OnoperIntermediaryDTO): string {
-        styleTable.clear();
-        scriptTable.clear();
+        const rendered = render(this.recursiveRender(item));
+        const resolvedHTML = collectResultSync(rendered);
 
-        const resolvedHTML = this.recursiveRender(item);
-        
         if (!resolvedHTML) {
             throw new Error("Invalid item type or structure");
         }
-
-        const resolvedArrowConnection = resolveArrowConnections(
-            this.elementList, this.season
-        );
-        const resolvedInteractJS = resolveInteractJS(this.season);
-        const resolvedStyle = resolveStyle(this.season);
-        const resolvedLogic = resolveLogic();
-        const resolvedGroupDeepDirection = resolveGroupDeepDirection(this.season)
 
         const html = `
             <!DOCTYPE html>
@@ -71,14 +52,10 @@ export class OnoperRenderer {
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    ${resolvedStyle}
-                    ${resolvedArrowConnection}
-                    ${resolvedInteractJS}
-                    ${resolvedGroupDeepDirection}
+                    <style>${DEP_STYLE}</style>
                 </head>
                 <body style="width: 100vw; height: 100vh; margin: 0; padding: 0; overflow: hidden;">
                     ${resolvedHTML}
-                    ${resolvedLogic}
                 </body>
             </html>
         `.replace(/\n/g, '').replace(/\s+/g, ' ').trim();
@@ -87,9 +64,9 @@ export class OnoperRenderer {
 
         return `
             <iframe 
-            src="data:text/html;base64,${encodedHtml}"
-            style="width: 100%; height: 100%; border: none;"
-            sandbox="allow-scripts allow-same-origin"
+                src="data:text/html;base64,${encodedHtml}"
+                style="width: 100%; height: 100%; border: none;"
+                sandbox="allow-scripts allow-same-origin"
             ></iframe>
         `;
     }

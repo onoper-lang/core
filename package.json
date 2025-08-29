@@ -6,6 +6,8 @@
   "module": "src/index.ts",
   "scripts": {
     "prebuild:deps": "bun run src/preBuildDeps.ts",
+    "prebuild:components": "bun build ./src/prebuild/entry.ts --outdir ./src/prebuild/dist --target browser",
+    "prebuild:renderer": "bun ./src/prebuild/renderer.ts",
     "build:js": "bun build src/index.ts --outdir dist",
     "build:types": "tsc --emitDeclarationOnly --outDir dist",
     "build": "bun run prebuild:deps && bun run build:js && bun run build:types",
@@ -33,6 +35,9 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
+    "@lit-labs/ssr": "^3.3.1",
+    "htm": "^3.1.1",
+    "lit-html": "^3.3.1",
     "node-html-parser": "^7.0.1",
     "uuid": "^11.1.0"
   }

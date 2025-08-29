@@ -1,4 +1,4 @@
-import { OnoperIntermediaryEntity, type OnoperIntermediaryDTO } from "../models/intermediary";
+import { OnoperIntermediaryEntity, type OnoperIntermediaryDTO } from "./type";
 import type { OnoperLexerToken } from "../lexicalAnalysis/tokenModel";
 
 interface HistoryEntity {

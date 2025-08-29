@@ -1,0 +1,37 @@
+@import url("../../../style/global.css");
+
+.onoper-simple-card-header {
+    display: flex;
+    width: max-content;
+    max-width: 100%;
+    position: relative;
+    align-items: center;
+    gap: 12px;
+    padding: 4px 8px;
+    background-color: var(--BACKGROUND_ALT_COLOR);
+    border-radius: var(--MIDDLE_ROUNDED);
+}
+.onoper-simple-card-header h3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+            line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.onoper-simple-card-header[data-named] {
+    padding-left: 4px;
+} 
+.onoper-simple-card-header[data-named] h3 {
+    text-indent: calc(24px + 12px);
+} 
+.onoper-simple-card-header-named {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 4px;
+    flex-shrink: 0;
+
+    border-radius: var(--INTERN_ROUNDED);
+}

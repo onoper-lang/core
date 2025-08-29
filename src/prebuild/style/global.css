@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --BOX_SHADOW: 0 1px 3px rgba(0, 0, 0, 0.10);
+    
+    --OVER_ROUNDED: 16px;
+    --EXTERN_ROUNDED: 12px;
+    --MIDDLE_ROUNDED: 9px;
+    --INTERN_ROUNDED: 6px;
+    
+    --CLAIM_COLOR: #FBD5D5;
+    --COMMENT_COLOR: #FDEDCA;
+    --BACKGROUND_COLOR: #F9F9F9;
+    --BACKGROUND_ALT_COLOR: #F1F1F1;
+    --ROOT_BACKGROUND_COLOR: #FFFFFF;
+    --ACTIVE_COLOR: #a8c9d1ff;
+}
+         
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: "Jost", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 500;
+}
+h1 {
+    font-size: 24px;
+}
+h2 {
+    font-size: 20px;
+}
+h3 {
+    font-size: 16px;
+}
+h4,
+h5,
+h6 {
+    font-size: 14px;
+}
+p {
+    font-size: 16px;
+    font-weight: 400;
+}
