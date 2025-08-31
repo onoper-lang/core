@@ -1,6 +1,6 @@
 {
   "name": "onoper-core",
-  "version": "1.0.5",
+  "version": "1.0.4",
   "description": "Linguagem para transformar listas em fluxogramas",
   "main": "dist/index.js",
   "module": "src/index.ts",
